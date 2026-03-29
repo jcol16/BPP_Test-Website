@@ -9,1447 +9,830 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    ::selection { background: #2A5271; color: #fff; }
 
     :root {
-      --blue:       #2A5271;
-      --charcoal:   #2E3339;
-      --sky:        #38A3D8;
-      --white:      #FFFFFF;
-      --gray-100:   #F5F7FA;
-      --gray-200:   #E2E4E8;
-      --gray-500:   #6B7280;
-      --radius:     12px;
-      --shadow:     0 4px 24px rgba(42,82,113,0.13);
-      --glow:       0 0 18px rgba(56,163,216,0.45);
+      --primary:   #2A5271;
+      --secondary: #2E3741;
+      --accent:    #3BA3DB;
+      --white:     #F7F7F7;
+      --light:     #F5F7FA;
+      --mid:       #E2E4E8;
+      --dark:      #1a2430;
     }
 
-    html { scroll-behavior: smooth; }
-
+    html { font-size: 14px; scroll-behavior: smooth; }
     body {
       font-family: 'Montserrat', sans-serif;
-      font-weight: 300;
-      color: var(--charcoal);
-      background: var(--white);
-      line-height: 1.7;
+      font-weight: 400;
+      line-height: 1.8;
+      color: #333;
+      background: #fff;
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
 
-    h1, h2, h3, h4 {
-      font-family: 'Poppins', sans-serif;
-      font-weight: 700;
-      line-height: 1.2;
+    /* ── NAV ── */
+    header {
+      background: var(--secondary);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.35);
     }
-
-    /* ── NAVBAR ── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 1000;
-      background: rgba(42,82,113,0.97);
-      backdrop-filter: blur(10px);
-      padding: 0 5%;
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      padding: 0 2rem;
       height: 72px;
-      box-shadow: 0 2px 20px rgba(0,0,0,0.18);
     }
-
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
-    }
-
-    .nav-logo img {
-      height: 44px;
-      width: auto;
-      object-fit: contain;
-    }
-
-    .nav-logo-text {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .nav-logo-text span:first-child {
+    .logo-wrap { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+    .logo-wrap img { height: 48px; width: auto; }
+    .logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+    .logo-text strong {
       font-family: 'Poppins', sans-serif;
       font-weight: 800;
-      font-size: 1.05rem;
-      color: var(--white);
-      letter-spacing: 0.3px;
-      line-height: 1.1;
+      font-size: 1.15rem;
+      color: #fff;
+      letter-spacing: -0.02em;
     }
-
-    .nav-logo-text span:last-child {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 400;
-      font-size: 0.65rem;
-      color: rgba(255,255,255,0.7);
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 32px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 500;
-      font-size: 0.875rem;
-      color: rgba(255,255,255,0.85);
+    .logo-text span { font-size: 0.72rem; color: var(--accent); font-weight: 500; letter-spacing: 0.04em; }
+    .logo-text em { font-size: 0.65rem; color: rgba(255,255,255,0.45); font-style: normal; letter-spacing: 0.06em; margin-top: 1px; }
+    nav { display: flex; align-items: center; gap: 0.25rem; }
+    nav a {
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.82);
       text-decoration: none;
-      transition: color 0.2s;
-      letter-spacing: 0.3px;
+      padding: 0.4rem 0.85rem;
+      border-radius: 4px;
+      letter-spacing: 0.03em;
+      transition: color 0.2s, background 0.2s;
+    }
+    nav a:hover { color: #fff; background: rgba(255,255,255,0.08); }
+    .nav-cta {
+      margin-left: 0.5rem;
+      background: var(--accent) !important;
+      color: #fff !important;
+      border-radius: 12px !important;
+      padding: 0.45rem 1.2rem !important;
+      box-shadow: 0 0 14px rgba(59,163,219,0.45);
+      transition: background 0.2s, box-shadow 0.2s, transform 0.15s !important;
+    }
+    .nav-cta:hover { background: #2e8dbf !important; box-shadow: 0 0 22px rgba(59,163,219,0.65) !important; transform: translateY(-1px); }
+
+    /* ── HERO AMBIENT LIGHT ── */
+    @keyframes driftA {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50%       { transform: translate(30px, -20px) scale(1.06); }
+    }
+    @keyframes driftB {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50%       { transform: translate(-25px, 18px) scale(1.04); }
+    }
+    @keyframes ambientFadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
     }
 
-    .nav-links a:hover { color: var(--sky); }
+    .hero-shapes {
+      position: absolute; inset: 0;
+      overflow: hidden; pointer-events: none; z-index: 1;
+      animation: ambientFadeIn 2.5s ease both;
+    }
+    /* large soft orb — right side, accent blue */
+    .orb-a {
+      position: absolute;
+      width: 700px; height: 700px;
+      right: -160px; top: -180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(59,163,219,0.13) 0%, transparent 70%);
+      animation: driftA 22s ease-in-out infinite;
+    }
+    /* medium orb — bottom-left, deep blue */
+    .orb-b {
+      position: absolute;
+      width: 500px; height: 500px;
+      left: -100px; bottom: -140px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(59,163,219,0.09) 0%, transparent 65%);
+      animation: driftB 28s ease-in-out infinite;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      height: 580px;
+      overflow: hidden;
+    }
+    .hero img.hero-bg {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center 60%;
+      display: block;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(105deg, rgba(26,36,48,0.88) 0%, rgba(42,82,113,0.7) 55%, rgba(42,82,113,0.15) 100%);
+    }
+    .hero-content {
+      position: absolute;
+      top: 50%; left: 0;
+      transform: translateY(-50%);
+      padding: 0 4rem;
+      max-width: 680px;
+      z-index: 3;
+    }
+    .hero-eyebrow {
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+    .hero-content h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 800;
+      line-height: 1.18;
+      letter-spacing: -0.03em;
+      color: #fff;
+      margin-bottom: 1.1rem;
+    }
+    .hero-content p {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.82);
+      line-height: 1.7;
+      margin-bottom: 2rem;
+      font-weight: 400;
+    }
+    @keyframes ctaPing {
+      0%   { transform: scale(1);   opacity: 0.55; }
+      80%  { transform: scale(1.55); opacity: 0; }
+      100% { transform: scale(1.55); opacity: 0; }
+    }
+
+    .cta-wrap { position: relative; display: inline-block; }
+    .cta-wrap::before {
+      content: '';
+      position: absolute; inset: -6px;
+      border-radius: 16px;
+      border: 2px solid rgba(59,163,219,0.55);
+      animation: ctaPing 2.2s ease-out infinite;
+      pointer-events: none;
+    }
 
     .btn-primary {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      background: var(--sky);
-      color: var(--white);
+      gap: 0.6rem;
+      background: var(--accent);
+      color: #fff;
       font-family: 'Poppins', sans-serif;
-      font-weight: 600;
-      font-size: 0.875rem;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.02em;
+      padding: 1rem 2.2rem;
+      border-radius: 12px;
       text-decoration: none;
-      padding: 11px 24px;
-      border-radius: var(--radius);
-      border: none;
-      cursor: pointer;
-      box-shadow: var(--glow);
+      box-shadow: 0 0 24px rgba(59,163,219,0.5), 0 4px 16px rgba(0,0,0,0.25), 0 0 0 1.5px rgba(255,255,255,0.5);
       transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
-      letter-spacing: 0.2px;
-    }
-
-    .btn-primary:hover {
-      background: #2b90c4;
-      box-shadow: 0 0 26px rgba(56,163,216,0.65);
-      transform: translateY(-1px);
-    }
-
-    .btn-outline {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: transparent;
-      color: var(--white);
-      font-family: 'Poppins', sans-serif;
-      font-weight: 600;
-      font-size: 0.875rem;
-      text-decoration: none;
-      padding: 11px 24px;
-      border-radius: var(--radius);
-      border: 2px solid rgba(255,255,255,0.5);
-      cursor: pointer;
-      transition: border-color 0.2s, color 0.2s, background 0.2s;
-      letter-spacing: 0.2px;
-    }
-
-    .btn-outline:hover {
-      border-color: var(--white);
-      background: rgba(255,255,255,0.08);
-    }
-
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      background: none;
-      border: none;
-      padding: 4px;
-    }
-
-    .hamburger span {
-      width: 24px;
-      height: 2px;
-      background: white;
-      border-radius: 2px;
-      transition: 0.3s;
-    }
-
-    /* ── HERO ── */
-    #hero {
-      min-height: 100vh;
-      background:
-        linear-gradient(155deg, rgba(42,82,113,0.96) 0%, rgba(42,82,113,0.88) 50%, rgba(56,163,216,0.15) 100%),
-        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60"><rect width="60" height="60" fill="%232A5271"/><circle cx="30" cy="30" r="1.5" fill="%23ffffff11"/></svg>');
-      background-size: cover;
-      display: flex;
-      align-items: center;
-      padding: 0 5%;
-      padding-top: 72px;
       position: relative;
-      overflow: hidden;
+    }
+    .btn-primary:hover { background: #2e8dbf; box-shadow: 0 0 32px rgba(59,163,219,0.7), 0 6px 20px rgba(0,0,0,0.25); transform: translateY(-2px); }
+    .btn-primary:active { transform: translateY(0); }
+
+    .cta-sub {
+      display: block;
+      margin-top: 0.85rem;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.06em;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 400;
     }
 
-    #hero::before {
+    /* trust bar */
+    .trust-bar {
+      background: var(--primary);
+      padding: 1.1rem 2rem;
+    }
+    .trust-bar-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 2rem;
+    }
+    .trust-item {
+      display: flex; align-items: center; gap: 0.55rem;
+      color: rgba(255,255,255,0.88);
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    .trust-item svg { color: var(--accent); flex-shrink: 0; }
+
+    /* ── SECTIONS ── */
+    .section { padding: 5rem 2rem; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+
+    .section-label {
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+    }
+    .section-title {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: 1.9rem;
+      line-height: 1.2;
+      letter-spacing: -0.025em;
+      color: var(--secondary);
+      margin-bottom: 1.2rem;
+    }
+    .section-body {
+      font-size: 0.97rem;
+      line-height: 1.85;
+      color: #555;
+      max-width: 520px;
+    }
+
+    /* two-col */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .two-col.reverse { direction: rtl; }
+    .two-col.reverse > * { direction: ltr; }
+
+    .img-block {
+      position: relative;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(42,82,113,0.18), 0 2px 8px rgba(0,0,0,0.12);
+    }
+    .img-block img { width: 100%; display: block; height: 380px; object-fit: cover; }
+    .img-block::after {
       content: '';
-      position: absolute;
-      bottom: -60px;
-      right: -80px;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(56,163,216,0.12) 0%, transparent 70%);
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(42,82,113,0.3) 0%, transparent 50%);
       pointer-events: none;
     }
 
-    #hero::after {
+    .feature-list { list-style: none; margin-top: 1.5rem; }
+    .feature-list li {
+      display: flex; align-items: flex-start; gap: 0.6rem;
+      font-size: 0.9rem; color: #555; margin-bottom: 0.65rem;
+    }
+    .feature-list li::before {
       content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 80px;
-      background: linear-gradient(to bottom, transparent, var(--white));
-    }
-
-    .hero-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      width: 100%;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-      gap: 60px;
-      padding: 80px 0 120px;
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(56,163,216,0.2);
-      border: 1px solid rgba(56,163,216,0.4);
-      color: var(--sky);
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 600;
-      font-size: 0.75rem;
-      padding: 6px 14px;
-      border-radius: 100px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 24px;
-    }
-
-    .hero-badge::before { content: '✦'; font-size: 0.6rem; }
-
-    .hero-content h1 {
-      font-size: clamp(2.4rem, 5vw, 3.8rem);
-      color: var(--white);
-      margin-bottom: 20px;
-      letter-spacing: -0.5px;
-    }
-
-    .hero-content h1 span {
-      color: var(--sky);
-      display: block;
-    }
-
-    .hero-content p {
-      font-size: 1.05rem;
-      color: rgba(255,255,255,0.8);
-      margin-bottom: 36px;
-      max-width: 500px;
-      font-weight: 400;
-      line-height: 1.8;
-    }
-
-    .hero-btns {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin-bottom: 48px;
-    }
-
-    .hero-btns .btn-primary {
-      font-size: 1rem;
-      padding: 14px 32px;
-    }
-
-    .hero-btns .btn-outline {
-      font-size: 1rem;
-      padding: 14px 32px;
-    }
-
-    .trust-badges {
-      display: flex;
-      gap: 28px;
-      flex-wrap: wrap;
-    }
-
-    .trust-badge {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: rgba(255,255,255,0.75);
-      font-size: 0.8rem;
-      font-weight: 500;
-    }
-
-    .trust-badge svg {
-      color: var(--sky);
-      flex-shrink: 0;
-    }
-
-    .hero-visual {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-    }
-
-    .hero-card {
-      background: rgba(255,255,255,0.07);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 20px;
-      padding: 36px;
-      width: 100%;
-      max-width: 420px;
-    }
-
-    .hero-card-title {
-      font-family: 'Poppins', sans-serif;
-      font-weight: 700;
-      font-size: 1.1rem;
-      color: var(--white);
-      margin-bottom: 6px;
-    }
-
-    .hero-card-sub {
-      font-size: 0.8rem;
-      color: rgba(255,255,255,0.6);
-      margin-bottom: 24px;
-    }
-
-    .service-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-bottom: 24px;
-    }
-
-    .service-list li {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      color: rgba(255,255,255,0.85);
-      font-size: 0.875rem;
-      font-weight: 500;
-    }
-
-    .service-list li::before {
-      content: '';
-      width: 8px;
-      height: 8px;
-      background: var(--sky);
+      display: block; flex-shrink: 0;
+      width: 7px; height: 7px;
       border-radius: 50%;
-      flex-shrink: 0;
-    }
-
-    .hero-stat-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      padding-top: 24px;
-      border-top: 1px solid rgba(255,255,255,0.12);
-    }
-
-    .hero-stat {
-      text-align: center;
-    }
-
-    .hero-stat-number {
-      font-family: 'Poppins', sans-serif;
-      font-weight: 700;
-      font-size: 1.6rem;
-      color: var(--sky);
-      display: block;
-    }
-
-    .hero-stat-label {
-      font-size: 0.7rem;
-      color: rgba(255,255,255,0.6);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    /* ── SECTION WRAPPER ── */
-    section {
-      padding: 96px 5%;
-    }
-
-    .section-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .section-label {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 600;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: var(--sky);
-      margin-bottom: 12px;
-      display: block;
-    }
-
-    .section-title {
-      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
-      color: var(--blue);
-      margin-bottom: 16px;
-    }
-
-    .section-sub {
-      font-size: 1rem;
-      color: var(--gray-500);
-      max-width: 560px;
-      line-height: 1.8;
-    }
-
-    .section-header {
-      margin-bottom: 56px;
-    }
-
-    .section-header.center {
-      text-align: center;
-    }
-
-    .section-header.center .section-sub {
-      margin: 0 auto;
-    }
-
-    /* ── SERVICES ── */
-    #services { background: var(--gray-100); }
-
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-    }
-
-    .service-card {
-      background: var(--white);
-      border-radius: 16px;
-      padding: 32px 28px;
-      box-shadow: var(--shadow);
-      border: 1px solid var(--gray-200);
-      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
-    }
-
-    .service-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(42,82,113,0.16);
-      border-color: rgba(56,163,216,0.3);
-    }
-
-    .service-icon {
-      width: 56px;
-      height: 56px;
-      background: linear-gradient(135deg, var(--blue), var(--sky));
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 20px;
-      font-size: 1.5rem;
-    }
-
-    .service-card h3 {
-      font-size: 1.05rem;
-      color: var(--blue);
-      margin-bottom: 10px;
-    }
-
-    .service-card p {
-      font-size: 0.875rem;
-      color: var(--gray-500);
-      line-height: 1.7;
+      background: var(--accent);
+      margin-top: 0.6rem;
     }
 
     /* ── WHY CHOOSE US ── */
-    #why {
-      background: var(--white);
-    }
-
+    .bg-light { background: var(--light); }
     .why-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem;
+      margin-top: 3rem;
     }
-
-    .why-visual {
-      position: relative;
+    .why-card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 2rem 1.8rem;
+      box-shadow: 0 3px 16px rgba(42,82,113,0.09), 0 1px 4px rgba(0,0,0,0.06);
+      transition: transform 0.2s, box-shadow 0.2s;
     }
-
-    .why-bg-card {
-      background: linear-gradient(145deg, var(--blue), #1d3d56);
-      border-radius: 20px;
-      padding: 48px 40px;
-      color: white;
+    .why-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 32px rgba(42,82,113,0.15);
     }
-
-    .why-bg-card h3 {
-      font-size: 1.5rem;
-      margin-bottom: 8px;
+    .why-icon {
+      width: 52px; height: 52px;
+      background: rgba(59,163,219,0.12);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.1rem;
+      color: var(--accent);
     }
-
-    .why-bg-card p {
-      font-size: 0.875rem;
-      opacity: 0.8;
-      margin-bottom: 32px;
-      font-weight: 400;
+    .why-card h3 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--secondary);
+      margin-bottom: 0.5rem;
     }
+    .why-card p { font-size: 0.88rem; color: #666; line-height: 1.75; }
 
-    .why-stats {
+    /* ── TECHNIQUES ── */
+    .techniques-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 20px;
+      gap: 3rem;
+      margin-top: 2rem;
     }
-
-    .why-stat {
-      background: rgba(255,255,255,0.08);
-      border-radius: 12px;
-      padding: 20px;
-      text-align: center;
-      border: 1px solid rgba(255,255,255,0.1);
+    .technique-item { display: flex; gap: 1rem; }
+    .technique-num {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: 2.2rem;
+      color: var(--accent);
+      line-height: 1;
+      opacity: 0.35;
+      flex-shrink: 0;
+      width: 2.5rem;
     }
-
-    .why-stat-num {
+    .technique-item h4 {
       font-family: 'Poppins', sans-serif;
       font-weight: 700;
-      font-size: 2rem;
-      color: var(--sky);
-      display: block;
+      font-size: 0.95rem;
+      color: var(--secondary);
+      margin-bottom: 0.35rem;
     }
+    .technique-item p { font-size: 0.87rem; color: #666; line-height: 1.75; }
 
-    .why-stat-lbl {
-      font-size: 0.75rem;
-      opacity: 0.7;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .why-float-badge {
-      position: absolute;
-      bottom: -20px;
-      right: -20px;
-      background: var(--sky);
-      color: white;
-      border-radius: 14px;
-      padding: 16px 20px;
-      font-family: 'Poppins', sans-serif;
-      font-weight: 700;
-      font-size: 0.85rem;
-      box-shadow: var(--glow);
-      text-align: center;
-    }
-
-    .why-float-badge span {
-      display: block;
-      font-size: 1.4rem;
-    }
-
-    .features-list {
-      display: flex;
-      flex-direction: column;
-      gap: 28px;
-    }
-
-    .feature-item {
-      display: flex;
-      gap: 18px;
-      align-items: flex-start;
-    }
-
-    .feature-icon {
-      width: 48px;
-      height: 48px;
-      min-width: 48px;
-      background: var(--gray-100);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.3rem;
-      border: 1px solid var(--gray-200);
-    }
-
-    .feature-item h4 {
-      font-size: 1rem;
-      color: var(--blue);
-      margin-bottom: 4px;
-    }
-
-    .feature-item p {
-      font-size: 0.875rem;
-      color: var(--gray-500);
-      line-height: 1.7;
-    }
-
-    /* ── PROCESS ── */
-    #process {
-      background: var(--blue);
-    }
-
-    #process .section-title { color: var(--white); }
-    #process .section-sub { color: rgba(255,255,255,0.7); }
-
-    .process-steps {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 32px;
-      position: relative;
-    }
-
-    .process-steps::before {
-      content: '';
-      position: absolute;
-      top: 36px;
-      left: 15%;
-      right: 15%;
-      height: 2px;
-      background: rgba(56,163,216,0.4);
-      z-index: 0;
-    }
-
-    .process-step {
-      text-align: center;
-      position: relative;
-      z-index: 1;
-    }
-
-    .step-num {
-      width: 72px;
-      height: 72px;
-      background: rgba(56,163,216,0.15);
-      border: 2px solid var(--sky);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 20px;
-      font-family: 'Poppins', sans-serif;
-      font-weight: 700;
-      font-size: 1.3rem;
-      color: var(--sky);
-    }
-
-    .process-step h3 {
-      font-size: 1rem;
-      color: var(--white);
-      margin-bottom: 8px;
-    }
-
-    .process-step p {
-      font-size: 0.8rem;
-      color: rgba(255,255,255,0.6);
-      line-height: 1.6;
-    }
-
-    /* ── TESTIMONIALS ── */
-    #testimonials { background: var(--gray-100); }
-
-    .testimonials-grid {
+    /* ── PROJECTS ── */
+    .projects-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
+      gap: 1.5rem;
+      margin-top: 2.5rem;
     }
-
-    .testimonial-card {
-      background: var(--white);
-      border-radius: 16px;
-      padding: 32px 28px;
-      box-shadow: var(--shadow);
-      border: 1px solid var(--gray-200);
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
+    .project-card {
+      position: relative;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.14);
+      aspect-ratio: 4/3;
     }
-
-    .stars {
-      color: #F59E0B;
-      font-size: 1rem;
-      letter-spacing: 2px;
-    }
-
-    .testimonial-text {
-      font-size: 0.9rem;
-      color: var(--charcoal);
-      line-height: 1.8;
-      font-style: italic;
-      flex: 1;
-    }
-
-    .testimonial-author {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      border-top: 1px solid var(--gray-200);
-      padding-top: 20px;
-    }
-
-    .author-avatar {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--blue), var(--sky));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Poppins', sans-serif;
-      font-weight: 700;
-      color: white;
-      font-size: 0.95rem;
-      flex-shrink: 0;
-    }
-
-    .author-name {
+    .project-card img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s; }
+    .project-card:hover img { transform: scale(1.05); }
+    .project-label {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 2rem 1.2rem 1rem;
+      background: linear-gradient(to top, rgba(26,36,48,0.85) 0%, transparent 100%);
+      color: #fff;
       font-family: 'Poppins', sans-serif;
       font-weight: 600;
-      font-size: 0.875rem;
-      color: var(--blue);
+      font-size: 0.85rem;
     }
 
-    .author-role {
-      font-size: 0.75rem;
-      color: var(--gray-500);
-    }
-
-    /* ── CTA SECTION ── */
-    #cta {
-      background: linear-gradient(135deg, var(--blue) 0%, #1a3d56 50%, #0f2a3d 100%);
-      padding: 96px 5%;
+    /* ── CTA BAND ── */
+    .cta-band {
+      background: var(--primary);
+      padding: 4rem 2rem;
       text-align: center;
-      position: relative;
-      overflow: hidden;
     }
-
-    #cta::before {
-      content: '';
-      position: absolute;
-      top: -100px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 800px;
-      height: 800px;
-      background: radial-gradient(circle, rgba(56,163,216,0.1) 0%, transparent 65%);
-      pointer-events: none;
+    .cta-band h2 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: 2rem;
+      letter-spacing: -0.025em;
+      color: #fff;
+      margin-bottom: 0.8rem;
     }
-
-    #cta h2 {
-      font-size: clamp(2rem, 4vw, 3rem);
-      color: var(--white);
-      margin-bottom: 16px;
+    .cta-band p { color: rgba(255,255,255,0.75); font-size: 1rem; margin-bottom: 2rem; }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      border: 2px solid rgba(255,255,255,0.6);
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 0.88rem;
+      padding: 0.75rem 1.8rem;
+      border-radius: 12px;
+      text-decoration: none;
+      margin-left: 1rem;
+      transition: border-color 0.2s, background 0.2s, transform 0.15s;
     }
-
-    #cta p {
-      font-size: 1.05rem;
-      color: rgba(255,255,255,0.75);
-      max-width: 520px;
-      margin: 0 auto 40px;
-      line-height: 1.8;
-    }
-
-    .cta-btns {
-      display: flex;
-      gap: 16px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .cta-btns .btn-primary {
-      font-size: 1rem;
-      padding: 15px 36px;
-    }
-
-    .contact-row {
-      display: flex;
-      gap: 40px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 48px;
-    }
-
-    .contact-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: rgba(255,255,255,0.8);
-      font-size: 0.9rem;
-    }
-
-    .contact-item svg { color: var(--sky); }
+    .btn-outline:hover { border-color: #fff; background: rgba(255,255,255,0.1); transform: translateY(-2px); }
 
     /* ── FOOTER ── */
     footer {
-      background: var(--charcoal);
-      padding: 56px 5% 32px;
+      background: var(--dark);
+      padding: 4rem 2rem 2rem;
+      color: rgba(255,255,255,0.65);
     }
-
     .footer-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .footer-top {
+      max-width: 1200px; margin: 0 auto;
       display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 48px;
-      margin-bottom: 48px;
+      grid-template-columns: 2fr 1fr 1fr 1.5fr;
+      gap: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
     }
-
-    .footer-brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 16px;
+    .footer-logo-wrap { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 1rem; }
+    .footer-logo-wrap img { height: 40px; }
+    .footer-brand-text strong {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      color: #fff;
     }
-
-    .footer-brand img {
-      height: 40px;
-      width: auto;
-      object-fit: contain;
-    }
-
-    .footer-brand-text span:first-child {
+    .footer-brand-text span { font-size: 0.68rem; color: var(--accent); font-weight: 500; letter-spacing: 0.06em; display: block; }
+    .footer-brand-text em { font-size: 0.65rem; color: rgba(255,255,255,0.38); font-style: normal; letter-spacing: 0.06em; display: block; margin-top: 1px; }
+    .footer-brand p { font-size: 0.84rem; line-height: 1.75; margin-top: 0.75rem; }
+    footer h4 {
       font-family: 'Poppins', sans-serif;
       font-weight: 700;
-      font-size: 0.95rem;
-      color: var(--white);
-      display: block;
-      line-height: 1.1;
-    }
-
-    .footer-brand-text span:last-child {
-      font-size: 0.65rem;
-      color: rgba(255,255,255,0.5);
+      font-size: 0.82rem;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      color: #fff;
+      margin-bottom: 1.1rem;
     }
-
-    .footer-desc {
-      font-size: 0.825rem;
-      color: rgba(255,255,255,0.55);
-      line-height: 1.8;
-      margin-bottom: 20px;
-    }
-
-    .footer-tagline {
-      font-size: 0.75rem;
-      color: var(--sky);
-      font-style: italic;
-      font-weight: 400;
-    }
-
-    .footer-col h4 {
-      font-family: 'Poppins', sans-serif;
-      font-weight: 600;
-      font-size: 0.875rem;
-      color: var(--white);
-      margin-bottom: 16px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .footer-col ul {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .footer-col ul li a {
-      font-size: 0.825rem;
-      color: rgba(255,255,255,0.55);
+    footer ul { list-style: none; }
+    footer ul li { margin-bottom: 0.55rem; }
+    footer ul li a {
+      color: rgba(255,255,255,0.6);
       text-decoration: none;
+      font-size: 0.87rem;
       transition: color 0.2s;
     }
-
-    .footer-col ul li a:hover { color: var(--sky); }
-
+    footer ul li a:hover { color: var(--accent); }
+    .contact-line { display: flex; align-items: flex-start; gap: 0.6rem; margin-bottom: 0.75rem; font-size: 0.87rem; }
+    .contact-line svg { flex-shrink: 0; color: var(--accent); margin-top: 2px; }
     .footer-bottom {
-      border-top: 1px solid rgba(255,255,255,0.1);
-      padding-top: 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .footer-bottom p {
-      font-size: 0.775rem;
-      color: rgba(255,255,255,0.4);
-    }
-
-    .footer-badges {
-      display: flex;
-      gap: 12px;
-    }
-
-    .footer-badge {
-      font-size: 0.7rem;
-      color: rgba(255,255,255,0.5);
-      border: 1px solid rgba(255,255,255,0.15);
-      padding: 4px 10px;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .footer-badge::before {
-      content: '✓';
-      color: var(--sky);
-      font-weight: 700;
+      max-width: 1200px; margin: 2rem auto 0;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.35);
     }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 1024px) {
-      .hero-inner { grid-template-columns: 1fr; text-align: center; }
-      .hero-content p { margin: 0 auto 36px; }
-      .hero-btns { justify-content: center; }
-      .trust-badges { justify-content: center; }
-      .hero-visual { display: none; }
-      .services-grid { grid-template-columns: repeat(2, 1fr); }
-      .why-grid { grid-template-columns: 1fr; gap: 48px; }
-      .why-float-badge { right: 20px; }
-      .process-steps { grid-template-columns: repeat(2, 1fr); }
-      .process-steps::before { display: none; }
-      .footer-top { grid-template-columns: 1fr 1fr; }
+    @media (max-width: 900px) {
+      .two-col { grid-template-columns: 1fr; gap: 2.5rem; }
+      .two-col.reverse { direction: ltr; }
+      .why-grid { grid-template-columns: 1fr 1fr; }
+      .techniques-grid { grid-template-columns: 1fr; }
+      .projects-grid { grid-template-columns: 1fr 1fr; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
     }
-
-    @media (max-width: 768px) {
-      .nav-links, nav .btn-primary { display: none; }
-      .hamburger { display: flex; }
-      .services-grid { grid-template-columns: 1fr; }
-      .testimonials-grid { grid-template-columns: 1fr; }
-      .process-steps { grid-template-columns: 1fr 1fr; }
-      .footer-top { grid-template-columns: 1fr; gap: 32px; }
-      .footer-bottom { flex-direction: column; text-align: center; }
+    @media (max-width: 736px) {
+      .hero-content { padding: 0 1.5rem; max-width: 100%; }
+      .hero-content h1 { font-size: 1.9rem; }
+      .why-grid { grid-template-columns: 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
+      nav { display: none; }
     }
-
-    @media (max-width: 480px) {
-      section { padding: 72px 4%; }
-      .process-steps { grid-template-columns: 1fr; }
-    }
-
-    /* ── MOBILE MENU ── */
-    .mobile-menu {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(42,82,113,0.98);
-      backdrop-filter: blur(16px);
-      z-index: 999;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 32px;
-    }
-
-    .mobile-menu.open { display: flex; }
-
-    .mobile-menu a {
-      font-family: 'Poppins', sans-serif;
-      font-weight: 600;
-      font-size: 1.4rem;
-      color: white;
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .mobile-menu a:hover { color: var(--sky); }
-
-    .mobile-close {
-      position: absolute;
-      top: 24px;
-      right: 24px;
-      background: none;
-      border: none;
-      color: white;
-      font-size: 1.8rem;
-      cursor: pointer;
-      line-height: 1;
-    }
-
-    /* ── SCROLL FADE IN ── */
-    .fade-up {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-
-    .fade-up.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .fade-delay-1 { transition-delay: 0.1s; }
-    .fade-delay-2 { transition-delay: 0.2s; }
-    .fade-delay-3 { transition-delay: 0.3s; }
-    .fade-delay-4 { transition-delay: 0.4s; }
-    .fade-delay-5 { transition-delay: 0.5s; }
   </style>
 </head>
 <body>
 
-  <!-- NAVBAR -->
-  <nav>
-    <a href="#hero" class="nav-logo">
-      <img src="Logo BPP.png" alt="Better Pro Paint Logo" />
-      <div class="nav-logo-text">
-        <span>Better Pro Paint</span>
-        <span>Interior &amp; Exterior Services</span>
+<!-- ══ HEADER / NAV ══ -->
+<header>
+  <div class="nav-inner">
+    <a class="logo-wrap" href="#">
+      <img src="Logo BPP.png" alt="Better Pro Paint logo" />
+      <div class="logo-text">
+        <strong>BETTER PRO PAINT</strong>
+        <span>Interior &amp; Exterior Painting Services</span>
+        <em>Reliable · Professional · Premium</em>
       </div>
     </a>
+    <nav>
+      <a href="#services">Services</a>
+      <a href="#why">Why Us</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+      <a href="#contact" class="nav-cta">Get a Free Estimate →</a>
+    </nav>
+  </div>
+</header>
 
-    <ul class="nav-links">
-      <li><a href="#services">Services</a></li>
-      <li><a href="#why">Why Us</a></li>
-      <li><a href="#process">Process</a></li>
-      <li><a href="#testimonials">Reviews</a></li>
-    </ul>
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <img class="hero-bg" src="https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?auto=format&fit=crop&w=1440&q=80" alt="Freshly painted home exterior" />
+  <div class="hero-overlay"></div>
 
-    <a href="#cta" class="btn-primary">Get a Free Estimate &rarr;</a>
-
-    <button class="hamburger" onclick="document.querySelector('.mobile-menu').classList.add('open')" aria-label="Open menu">
-      <span></span><span></span><span></span>
-    </button>
-  </nav>
-
-  <!-- MOBILE MENU -->
-  <div class="mobile-menu">
-    <button class="mobile-close" onclick="document.querySelector('.mobile-menu').classList.remove('open')">&times;</button>
-    <a href="#services" onclick="document.querySelector('.mobile-menu').classList.remove('open')">Services</a>
-    <a href="#why" onclick="document.querySelector('.mobile-menu').classList.remove('open')">Why Us</a>
-    <a href="#process" onclick="document.querySelector('.mobile-menu').classList.remove('open')">Process</a>
-    <a href="#testimonials" onclick="document.querySelector('.mobile-menu').classList.remove('open')">Reviews</a>
-    <a href="#cta" class="btn-primary" onclick="document.querySelector('.mobile-menu').classList.remove('open')">Get a Free Estimate &rarr;</a>
+  <!-- ambient light background -->
+  <div class="hero-shapes">
+    <div class="orb-a"></div>
+    <div class="orb-b"></div>
   </div>
 
-  <!-- HERO -->
-  <section id="hero">
-    <div class="hero-inner">
-
-      <div class="hero-content">
-        <div class="hero-badge">Reliable &bull; Professional &bull; Premium</div>
-        <h1>
-          Elevating Every
-          <span>Surface We Touch</span>
-        </h1>
-        <p>
-          Premium interior &amp; exterior painting services for homeowners and property investors.
-          Flawless finishes, on-time delivery, and craftsmanship that lasts.
-        </p>
-        <div class="hero-btns">
-          <a href="#cta" class="btn-primary">Get a Free Estimate &rarr;</a>
-          <a href="#services" class="btn-outline">Our Services</a>
-        </div>
-        <div class="trust-badges">
-          <div class="trust-badge">
-            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-            </svg>
-            Licensed &amp; Insured
-          </div>
-          <div class="trust-badge">
-            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
-            </svg>
-            5-Star Rated
-          </div>
-          <div class="trust-badge">
-            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-            </svg>
-            Free Estimates
-          </div>
-        </div>
-      </div>
-
-      <div class="hero-visual">
-        <div class="hero-card">
-          <div class="hero-card-title">What We Offer</div>
-          <div class="hero-card-sub">Professional painting for every property type</div>
-          <ul class="service-list">
-            <li>Interior Residential Painting</li>
-            <li>Exterior House Painting</li>
-            <li>Cabinet Refinishing</li>
-            <li>Deck &amp; Fence Staining</li>
-            <li>Property Investor Packages</li>
-            <li>Commercial Touch-Ups</li>
-          </ul>
-          <div class="hero-stat-row">
-            <div class="hero-stat">
-              <span class="hero-stat-number">500+</span>
-              <span class="hero-stat-label">Projects</span>
-            </div>
-            <div class="hero-stat">
-              <span class="hero-stat-number">5★</span>
-              <span class="hero-stat-label">Rated</span>
-            </div>
-            <div class="hero-stat">
-              <span class="hero-stat-number">100%</span>
-              <span class="hero-stat-label">Satisfied</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
+  <div class="hero-content">
+    <p class="hero-eyebrow">Professional · Reliable · Premium</p>
+    <h1>Welcome to<br>Better Pro Paint</h1>
+    <p>Elevating properties with premium painting services. Trusted by homeowners and property investors across Melbourne for exceptional results, on time, every time.</p>
+    <div class="cta-wrap">
+      <a href="#contact" class="btn-primary">Get a Free Estimate →</a>
     </div>
-  </section>
+    <span class="cta-sub">No obligation &nbsp;·&nbsp; Response within 24 hrs</span>
+  </div>
+</section>
 
-  <!-- SERVICES -->
-  <section id="services">
-    <div class="section-inner">
-      <div class="section-header center">
-        <span class="section-label">What We Do</span>
-        <h2 class="section-title">Painting Services Built for Quality</h2>
-        <p class="section-sub">From a single room refresh to a full exterior transformation, we deliver results that exceed expectations every time.</p>
+<!-- trust bar -->
+<div class="trust-bar">
+  <div class="trust-bar-inner">
+    <div class="trust-item">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      Licensed &amp; Insured
+    </div>
+    <div class="trust-item">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      On-Time Completion
+    </div>
+    <div class="trust-item">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
+      5-Star Rated Service
+    </div>
+    <div class="trust-item">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+      Free Detailed Quotes
+    </div>
+    <div class="trust-item">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+      Residential &amp; Investment Properties
+    </div>
+  </div>
+</div>
+
+<!-- ══ INTERIOR PAINTING ══ -->
+<section class="section" id="services">
+  <div class="section-inner">
+    <div class="two-col">
+      <div class="img-block">
+        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=80" alt="Freshly painted interior room" />
       </div>
-
-      <div class="services-grid">
-
-        <div class="service-card fade-up fade-delay-1">
-          <div class="service-icon">🏠</div>
-          <h3>Interior Painting</h3>
-          <p>Flawless wall, ceiling, and trim painting with careful prep work, premium paints, and spotless cleanup. Minimal disruption to your home.</p>
-        </div>
-
-        <div class="service-card fade-up fade-delay-2">
-          <div class="service-icon">🏡</div>
-          <h3>Exterior Painting</h3>
-          <p>Full exterior repaints including siding, trim, doors, and soffits. We use weather-resistant coatings built to last through every season.</p>
-        </div>
-
-        <div class="service-card fade-up fade-delay-3">
-          <div class="service-icon">🗄️</div>
-          <h3>Cabinet Refinishing</h3>
-          <p>Give your kitchen or bathroom a stunning makeover with professionally refinished cabinets — a fraction of the cost of replacement.</p>
-        </div>
-
-        <div class="service-card fade-up fade-delay-4">
-          <div class="service-icon">🌲</div>
-          <h3>Deck &amp; Fence Staining</h3>
-          <p>Protect and beautify your outdoor wood surfaces with professional staining and sealing services that extend their lifespan.</p>
-        </div>
-
-        <div class="service-card fade-up fade-delay-5">
-          <div class="service-icon">🏢</div>
-          <h3>Property Investor Packages</h3>
-          <p>Turnkey painting solutions for rental properties, flips, and multi-unit buildings. Fast turnarounds with consistent, reliable quality.</p>
-        </div>
-
-        <div class="service-card fade-up">
-          <div class="service-icon">✨</div>
-          <h3>Residential Repaints</h3>
-          <p>Refresh and revitalize your existing home with a complete repaint. Color consultation available to help you choose the perfect palette.</p>
-        </div>
-
+      <div>
+        <p class="section-label">Our Services</p>
+        <h2 class="section-title">Interior Painting</h2>
+        <p class="section-body">We bring precision and care to every interior painting project. From single rooms to full home repaints, our team delivers clean, crisp finishes that elevate your living spaces.</p>
+        <ul class="feature-list">
+          <li>Full interior repaints — walls, ceilings, trims</li>
+          <li>Feature walls and accent colour consultation</li>
+          <li>Cabinet and joinery refinishing</li>
+          <li>Thorough surface preparation and priming</li>
+          <li>Low-VOC premium paint options available</li>
+        </ul>
+        <br>
+        <a href="#contact" class="btn-primary" style="margin-top:0.5rem">Get a Free Estimate →</a>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- WHY CHOOSE US -->
-  <section id="why">
-    <div class="section-inner">
-      <div class="why-grid">
+<!-- ══ EXTERIOR PAINTING ══ -->
+<section class="section bg-light">
+  <div class="section-inner">
+    <div class="two-col reverse">
+      <div class="img-block">
+        <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=800&q=80" alt="Freshly painted house exterior" />
+      </div>
+      <div>
+        <p class="section-label">Our Services</p>
+        <h2 class="section-title">Exterior Painting</h2>
+        <p class="section-body">Protect and beautify your property with our professional exterior painting service. We use durable, weather-resistant paints suited to Australian conditions for a long-lasting finish.</p>
+        <ul class="feature-list">
+          <li>House exteriors, weatherboards &amp; render</li>
+          <li>Deck and fence staining and sealing</li>
+          <li>Fascia, soffits and gutters</li>
+          <li>Pressure washing and full surface prep</li>
+          <li>Investment property and rental repaints</li>
+        </ul>
+        <br>
+        <a href="#contact" class="btn-primary" style="margin-top:0.5rem">Get a Free Estimate →</a>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <div class="why-visual">
-          <div class="why-bg-card">
-            <h3>Our Track Record</h3>
-            <p>Years of delivering premium results across the region</p>
-            <div class="why-stats">
-              <div class="why-stat">
-                <span class="why-stat-num">500+</span>
-                <span class="why-stat-lbl">Projects Done</span>
-              </div>
-              <div class="why-stat">
-                <span class="why-stat-num">8+</span>
-                <span class="why-stat-lbl">Years Experience</span>
-              </div>
-              <div class="why-stat">
-                <span class="why-stat-num">200+</span>
-                <span class="why-stat-lbl">Happy Clients</span>
-              </div>
-              <div class="why-stat">
-                <span class="why-stat-num">100%</span>
-                <span class="why-stat-lbl">Satisfaction Rate</span>
-              </div>
-            </div>
-          </div>
-          <div class="why-float-badge">
-            <span>★★★★★</span>
-            Top Rated Painter
-          </div>
+<!-- ══ WHY CHOOSE US ══ -->
+<section class="section" id="why">
+  <div class="section-inner">
+    <div style="text-align:center; max-width:600px; margin:0 auto 0.5rem;">
+      <p class="section-label">Why Better Pro Paint</p>
+      <h2 class="section-title" style="max-width:100%;">Why Homeowners &amp; Investors Choose Us</h2>
+      <p style="font-size:0.95rem; color:#666; line-height:1.8;">We combine trade expertise with a modern, professional approach — so you get exceptional results and a stress-free experience from quote to clean-up.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">
+          <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
         </div>
+        <h3>Licensed &amp; Fully Insured</h3>
+        <p>Complete peace of mind on every job. We carry full public liability insurance and all work meets Australian trade standards.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">
+          <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+        </div>
+        <h3>Premium Quality Finishes</h3>
+        <p>We only use top-tier paints and coatings. Our meticulous prep work ensures finishes that last and look outstanding years down the track.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">
+          <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <h3>On-Time, Every Time</h3>
+        <p>We respect your time. Projects are completed on schedule with clear communication throughout — no surprises, no delays.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">
+          <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+        </div>
+        <h3>Free Detailed Quotes</h3>
+        <p>Transparent, itemised quotes with no hidden costs. Know exactly what you're getting before any work begins.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">
+          <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        </div>
+        <h3>Specialists in Investment Properties</h3>
+        <p>We work closely with property investors and managers to maximise asset value through fast, high-quality repaints between tenants.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">
+          <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+        </div>
+        <h3>Clean &amp; Respectful Team</h3>
+        <p>We treat your property with respect — protecting furniture, cleaning up thoroughly, and leaving your home better than we found it.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- ══ TECHNIQUES ══ -->
+<section class="section bg-light">
+  <div class="section-inner">
+    <div style="max-width:580px; margin-bottom:3rem;">
+      <p class="section-label">Our Approach</p>
+      <h2 class="section-title">Professional Painting Techniques</h2>
+      <p class="section-body">Every job follows our proven process — delivering consistent, high-quality results whether it's a single room or an entire property.</p>
+    </div>
+    <div class="techniques-grid">
+      <div class="technique-item">
+        <div class="technique-num">01</div>
         <div>
-          <span class="section-label">Why Better Pro Paint</span>
-          <h2 class="section-title">The Professional Difference</h2>
-          <p class="section-sub" style="margin-bottom: 40px;">We don't just paint walls — we treat every project as an investment in your property's value and your family's pride.</p>
-
-          <div class="features-list">
-            <div class="feature-item fade-up">
-              <div class="feature-icon">🛡️</div>
-              <div>
-                <h4>Licensed &amp; Fully Insured</h4>
-                <p>Complete peace of mind on every job. We carry full liability and workers' comp insurance so you're always protected.</p>
-              </div>
-            </div>
-            <div class="feature-item fade-up fade-delay-1">
-              <div class="feature-icon">🎨</div>
-              <div>
-                <h4>Premium Materials Only</h4>
-                <p>We use only top-grade paints and coatings — no cutting corners. The result is a finish that looks better and lasts longer.</p>
-              </div>
-            </div>
-            <div class="feature-item fade-up fade-delay-2">
-              <div class="feature-icon">⏱️</div>
-              <div>
-                <h4>On-Time, Every Time</h4>
-                <p>We respect your schedule. Projects are completed on time and on budget — with transparent communication throughout.</p>
-              </div>
-            </div>
-            <div class="feature-item fade-up fade-delay-3">
-              <div class="feature-icon">🔍</div>
-              <div>
-                <h4>Detail-Obsessed Prep Work</h4>
-                <p>A great paint job starts with great prep. We take the time to properly prepare every surface for a flawless, lasting finish.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- PROCESS -->
-  <section id="process">
-    <div class="section-inner">
-      <div class="section-header center">
-        <span class="section-label">How It Works</span>
-        <h2 class="section-title">Simple. Transparent. Professional.</h2>
-        <p class="section-sub" style="color: rgba(255,255,255,0.7); margin: 0 auto;">From your first call to the final walkthrough, we make the entire process easy and stress-free.</p>
-      </div>
-
-      <div class="process-steps">
-
-        <div class="process-step fade-up fade-delay-1">
-          <div class="step-num">01</div>
-          <h3>Free Estimate</h3>
-          <p>Contact us for a free, no-obligation estimate. We'll assess your project, discuss your vision, and provide a clear quote.</p>
-        </div>
-
-        <div class="process-step fade-up fade-delay-2">
-          <div class="step-num">02</div>
-          <h3>Color &amp; Plan</h3>
-          <p>We help you select the perfect colors and materials, then schedule your project at a time that works best for you.</p>
-        </div>
-
-        <div class="process-step fade-up fade-delay-3">
-          <div class="step-num">03</div>
-          <h3>Expert Execution</h3>
-          <p>Our skilled team arrives on time, protects your space, and delivers a premium paint job with meticulous attention to detail.</p>
-        </div>
-
-        <div class="process-step fade-up fade-delay-4">
-          <div class="step-num">04</div>
-          <h3>Final Walkthrough</h3>
-          <p>We walk through the finished project with you to make sure every detail meets your expectations before we consider it complete.</p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- TESTIMONIALS -->
-  <section id="testimonials">
-    <div class="section-inner">
-      <div class="section-header center">
-        <span class="section-label">Client Reviews</span>
-        <h2 class="section-title">What Our Customers Say</h2>
-        <p class="section-sub">Real results from real homeowners and property investors who trust Better Pro Paint.</p>
-      </div>
-
-      <div class="testimonials-grid">
-
-        <div class="testimonial-card fade-up fade-delay-1">
-          <div class="stars">★★★★★</div>
-          <p class="testimonial-text">"Better Pro Paint completely transformed our home. The prep work was thorough, the crew was professional and respectful of our space, and the finish is absolutely flawless. We couldn't be happier."</p>
-          <div class="testimonial-author">
-            <div class="author-avatar">SL</div>
-            <div>
-              <div class="author-name">Sarah L.</div>
-              <div class="author-role">Homeowner</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="testimonial-card fade-up fade-delay-2">
-          <div class="stars">★★★★★</div>
-          <p class="testimonial-text">"As a property investor, turnaround time and quality are everything. Better Pro Paint delivers both, consistently. They've become my go-to painter for all my flips and rentals."</p>
-          <div class="testimonial-author">
-            <div class="author-avatar">MR</div>
-            <div>
-              <div class="author-name">Marcus R.</div>
-              <div class="author-role">Property Investor</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="testimonial-card fade-up fade-delay-3">
-          <div class="stars">★★★★★</div>
-          <p class="testimonial-text">"The cabinet refinishing they did in our kitchen looks incredible — like brand new cabinets at a fraction of the cost. The team was clean, fast, and the results speak for themselves."</p>
-          <div class="testimonial-author">
-            <div class="author-avatar">JT</div>
-            <div>
-              <div class="author-name">Jennifer T.</div>
-              <div class="author-role">Homeowner</div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section id="cta">
-    <div class="section-inner" style="text-align: center; position: relative; z-index: 1;">
-      <span class="section-label" style="color: var(--sky);">Ready to Get Started?</span>
-      <h2>Transform Your Property Today</h2>
-      <p>Get a free, no-obligation estimate and see why homeowners and investors across the area choose Better Pro Paint for premium results.</p>
-      <div class="cta-btns">
-        <a href="tel:+15555555555" class="btn-primary" style="font-size: 1rem; padding: 15px 36px;">
-          📞 Call for a Free Estimate
-        </a>
-      </div>
-      <div class="contact-row">
-        <div class="contact-item">
-          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-          </svg>
-          (555) 555-5555
-        </div>
-        <div class="contact-item">
-          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-          </svg>
-          info@betterpropaint.com
-        </div>
-        <div class="contact-item">
-          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-          </svg>
-          Serving Your Local Area
+          <h4>Surface Preparation</h4>
+          <p>We sand, fill, clean and prime every surface before a drop of paint is applied. Proper prep is the foundation of a lasting finish.</p>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-inner">
-      <div class="footer-top">
-
+      <div class="technique-item">
+        <div class="technique-num">02</div>
         <div>
-          <div class="footer-brand">
-            <img src="Logo BPP.png" alt="Better Pro Paint" />
-            <div class="footer-brand-text">
-              <span>Better Pro Paint</span>
-              <span>Interior &amp; Exterior Services</span>
-            </div>
-          </div>
-          <p class="footer-desc">Premium painting services for homeowners and property investors. We elevate every property we touch with expert craftsmanship and top-grade materials.</p>
-          <p class="footer-tagline">"Elevating properties with premium painting services"</p>
+          <h4>Colour Consultation</h4>
+          <p>Not sure what colour to choose? We help you select the right tones for your property's style, lighting and surroundings.</p>
         </div>
-
-        <div class="footer-col">
-          <h4>Services</h4>
-          <ul>
-            <li><a href="#services">Interior Painting</a></li>
-            <li><a href="#services">Exterior Painting</a></li>
-            <li><a href="#services">Cabinet Refinishing</a></li>
-            <li><a href="#services">Deck &amp; Fence Staining</a></li>
-            <li><a href="#services">Property Investor Packages</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h4>Company</h4>
-          <ul>
-            <li><a href="#why">About Us</a></li>
-            <li><a href="#process">Our Process</a></li>
-            <li><a href="#testimonials">Reviews</a></li>
-            <li><a href="#cta">Contact</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h4>Contact</h4>
-          <ul>
-            <li><a href="tel:+15555555555">(555) 555-5555</a></li>
-            <li><a href="mailto:info@betterpropaint.com">info@betterpropaint.com</a></li>
-            <li><a href="#cta">Free Estimate</a></li>
-          </ul>
-        </div>
-
       </div>
-
-      <div class="footer-bottom">
-        <p>&copy; 2024 Better Pro Paint. All rights reserved.</p>
-        <div class="footer-badges">
-          <div class="footer-badge">Licensed</div>
-          <div class="footer-badge">Insured</div>
-          <div class="footer-badge">5-Star Rated</div>
+      <div class="technique-item">
+        <div class="technique-num">03</div>
+        <div>
+          <h4>Premium Paint Application</h4>
+          <p>Using brush, roller and spray techniques as appropriate, we apply even, streak-free coats for a clean professional finish every time.</p>
+        </div>
+      </div>
+      <div class="technique-item">
+        <div class="technique-num">04</div>
+        <div>
+          <h4>Quality Inspection &amp; Touch-Up</h4>
+          <p>Before we pack up, we walk through the job with you, addressing any touch-ups to ensure you're 100% satisfied with the result.</p>
+        </div>
+      </div>
+      <div class="technique-item">
+        <div class="technique-num">05</div>
+        <div>
+          <h4>Protection &amp; Masking</h4>
+          <p>All flooring, furniture and fixtures are protected with drop sheets and precision masking — no mess left behind.</p>
+        </div>
+      </div>
+      <div class="technique-item">
+        <div class="technique-num">06</div>
+        <div>
+          <h4>Final Clean-Up</h4>
+          <p>We remove all materials, dispose of waste responsibly and leave your property clean and ready to enjoy immediately.</p>
         </div>
       </div>
     </div>
-  </footer>
+  </div>
+</section>
 
-  <script>
-    // Scroll fade-in
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible');
-          observer.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.12 });
+<!-- ══ RECENT PROJECTS ══ -->
+<section class="section" id="projects">
+  <div class="section-inner">
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:0.5rem;">
+      <div>
+        <p class="section-label">Portfolio</p>
+        <h2 class="section-title" style="margin-bottom:0">Recent Projects</h2>
+      </div>
+      <a href="#contact" style="font-family:'Poppins',sans-serif; font-weight:600; font-size:0.82rem; color:var(--accent); text-decoration:none; letter-spacing:0.04em;">View All Work →</a>
+    </div>
+    <p style="font-size:0.92rem; color:#666; margin-bottom:2.5rem;">A selection of our recent residential and investment property painting work.</p>
+    <div class="projects-grid">
+      <div class="project-card">
+        <img src="https://images.unsplash.com/photo-1598228723793-52759bba239c?auto=format&fit=crop&w=600&q=80" alt="Residential exterior repaint" />
+        <div class="project-label">Exterior Repaint</div>
+      </div>
+      <div class="project-card">
+        <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=600&q=80" alt="Interior repaint" />
+        <div class="project-label">Full Interior Repaint</div>
+      </div>
+      <div class="project-card">
+        <img src="https://images.pexels.com/photos/5652626/pexels-photo-5652626.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Pressure washing house exterior" />
+        <div class="project-label">Pressure Washing</div>
+      </div>
+      <div class="project-card">
+        <img src="https://images.unsplash.com/photo-1565538810643-b5bdb714032a?auto=format&fit=crop&w=600&q=80" alt="Two-tone kitchen cabinet refinishing" />
+        <div class="project-label">Cabinet Refinishing</div>
+      </div>
+      <div class="project-card">
+        <img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=600&q=80" alt="Painters painting house exterior" />
+        <div class="project-label">Exterior Repaint</div>
+      </div>
+      <div class="project-card">
+        <img src="https://images.unsplash.com/photo-1560184897-ae75f418493e?auto=format&fit=crop&w=600&q=80" alt="Traditional home repaint" />
+        <div class="project-label">Full Repaint</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+<!-- ══ CTA BAND ══ -->
+<div class="cta-band">
+  <h2>Ready to Transform Your Property?</h2>
+  <p>Contact us today for a free, no-obligation estimate. We'll get back to you within 24 hours.</p>
+  <div>
+    <a href="#contact" class="btn-primary">Get a Free Estimate →</a>
+    <a href="tel:0400000000" class="btn-outline">Call Us Now</a>
+  </div>
+</div>
 
-    // Smooth active nav highlighting
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-links a');
+<!-- ══ FOOTER ══ -->
+<footer id="contact">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo-wrap">
+        <img src="Logo BPP.png" alt="Better Pro Paint" />
+        <div class="footer-brand-text">
+          <strong>BETTER PRO PAINT</strong>
+          <span>Interior &amp; Exterior Painting Services</span>
+          <em>Reliable · Professional · Premium</em>
+        </div>
+      </div>
+      <p>Elevating properties with premium painting services. Targeting homeowners &amp; property investors looking to upgrade their assets.</p>
+    </div>
+    <div>
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#">Interior Painting</a></li>
+        <li><a href="#">Exterior Painting</a></li>
+        <li><a href="#">Cabinet Refinishing</a></li>
+        <li><a href="#">Deck &amp; Fence Staining</a></li>
+        <li><a href="#">Investment Properties</a></li>
+        <li><a href="#">Free Estimates</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#projects">Our Work</a></li>
+        <li><a href="#why">Why Choose Us</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contact Us</h4>
+      <div class="contact-line">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+        <span>0400 000 000</span>
+      </div>
+      <div class="contact-line">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        <span>info@betterpropaint.com.au</span>
+      </div>
+      <div class="contact-line">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        <span>Melbourne, VIC</span>
+      </div>
+      <br>
+      <a href="#contact" class="btn-primary" style="font-size:0.82rem; padding:0.65rem 1.4rem;">Get a Free Estimate →</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2024 Better Pro Paint. All rights reserved.</span>
+    <span>Elevating properties with premium painting services</span>
+  </div>
+</footer>
 
-    window.addEventListener('scroll', () => {
-      let current = '';
-      sections.forEach(s => {
-        if (window.scrollY >= s.offsetTop - 120) current = s.getAttribute('id');
-      });
-      navLinks.forEach(a => {
-        a.style.color = a.getAttribute('href') === `#${current}` ? 'var(--sky)' : '';
-      });
-    });
-  </script>
 </body>
 </html>
