@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Work | Better Pro Paint</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary:   #2A5271;
+      --secondary: #2E3741;
+      --accent:    #3BA3DB;
+      --light:     #F5F7FA;
+      --dark:      #1a2430;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 400;
+      line-height: 1.8;
+      color: #333;
+      background: #fff;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    header {
+      background: var(--secondary);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.35);
+    }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 72px;
+    }
+    .logo-wrap { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+    .logo-wrap img { height: 48px; width: auto; }
+    .logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+    .logo-text strong { font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 1.15rem; color: #fff; letter-spacing: -0.02em; }
+    .logo-text span { font-size: 0.72rem; color: var(--accent); font-weight: 500; letter-spacing: 0.04em; }
+    .logo-text em { font-size: 0.65rem; color: rgba(255,255,255,0.45); font-style: normal; letter-spacing: 0.06em; margin-top: 1px; }
+    nav { display: flex; align-items: center; gap: 0.25rem; }
+    nav a {
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.82);
+      text-decoration: none;
+      padding: 0.4rem 0.85rem;
+      border-radius: 4px;
+      letter-spacing: 0.03em;
+      transition: color 0.2s, background 0.2s;
+    }
+    nav a:hover { color: #fff; background: rgba(255,255,255,0.08); }
+    .nav-cta {
+      margin-left: 0.5rem;
+      background: var(--accent) !important;
+      color: #fff !important;
+      border-radius: 12px !important;
+      padding: 0.45rem 1.2rem !important;
+      box-shadow: 0 0 14px rgba(59,163,219,0.45);
+      transition: background 0.2s, box-shadow 0.2s, transform 0.15s !important;
+    }
+    .nav-cta:hover { background: #2e8dbf !important; transform: translateY(-1px); }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      background: var(--primary);
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+    .page-header h1 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: 2.4rem;
+      letter-spacing: -0.03em;
+      color: #fff;
+      margin-bottom: 0.6rem;
+    }
+    .page-header p { color: rgba(255,255,255,0.7); font-size: 1rem; }
+
+    /* ── FILTER TABS ── */
+    .filter-bar {
+      background: var(--light);
+      padding: 1.2rem 2rem;
+      border-bottom: 1px solid #E2E4E8;
+    }
+    .filter-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.45rem 1.1rem;
+      border-radius: 20px;
+      border: 1.5px solid #E2E4E8;
+      background: #fff;
+      color: #666;
+      cursor: pointer;
+      letter-spacing: 0.03em;
+      transition: all 0.2s;
+    }
+    .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .filter-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+    /* ── GALLERY GRID ── */
+    .gallery-section { padding: 3rem 2rem 5rem; }
+    .gallery-inner { max-width: 1200px; margin: 0 auto; }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+
+    .gallery-card {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      box-shadow: 0 3px 16px rgba(0,0,0,0.12);
+      cursor: pointer;
+    }
+    .gallery-card img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s;
+    }
+    .gallery-card:hover img { transform: scale(1.05); }
+    .gallery-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(26,36,48,0.82) 0%, transparent 55%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      display: flex;
+      align-items: flex-end;
+      padding: 1.2rem;
+    }
+    .gallery-card:hover .gallery-overlay { opacity: 1; }
+    .gallery-info { }
+    .gallery-info h3 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: #fff;
+      margin-bottom: 0.2rem;
+    }
+    .gallery-info span {
+      font-size: 0.75rem;
+      color: var(--accent);
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* empty state */
+    .empty-slot {
+      border-radius: 8px;
+      border: 2px dashed #D1D5DB;
+      aspect-ratio: 4/3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #9BA3AF;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      gap: 0.5rem;
+      letter-spacing: 0.04em;
+    }
+    .empty-slot svg { opacity: 0.4; }
+
+    /* ── CTA ── */
+    .portfolio-cta {
+      background: var(--primary);
+      padding: 3.5rem 2rem;
+      text-align: center;
+    }
+    .portfolio-cta h2 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: 1.8rem;
+      color: #fff;
+      margin-bottom: 0.6rem;
+      letter-spacing: -0.025em;
+    }
+    .portfolio-cta p { color: rgba(255,255,255,0.7); margin-bottom: 1.8rem; }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--accent);
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 1rem 2.2rem;
+      border-radius: 12px;
+      text-decoration: none;
+      box-shadow: 0 0 24px rgba(59,163,219,0.5), 0 0 0 1.5px rgba(255,255,255,0.5);
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: #2e8dbf; transform: translateY(-2px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark);
+      padding: 2rem;
+      text-align: center;
+      color: rgba(255,255,255,0.35);
+      font-size: 0.78rem;
+    }
+
+    /* ── HAMBURGER ── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 40px; height: 40px;
+      background: none; border: none;
+      cursor: pointer; padding: 6px;
+    }
+    .hamburger span {
+      display: block; height: 2px;
+      background: #fff; border-radius: 2px;
+      transition: transform 0.22s, opacity 0.22s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-nav {
+      display: none;
+      flex-direction: column;
+      background: var(--secondary);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      position: sticky; top: 72px; z-index: 99;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.95rem; font-weight: 600;
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      padding: 0.9rem 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      transition: background 0.15s, color 0.15s;
+    }
+    .mobile-nav a:hover { background: rgba(255,255,255,0.06); color: #fff; }
+    .mobile-nav .mobile-cta {
+      margin: 0.75rem 1.5rem 1rem;
+      background: var(--accent); color: #fff;
+      border-radius: 12px; text-align: center;
+      border-bottom: none;
+      padding: 0.85rem 1.5rem;
+    }
+
+    @media (max-width: 900px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      nav { display: none; }
+      .hamburger { display: flex; }
+      .nav-inner { padding: 0 1.25rem; }
+    }
+    @media (max-width: 560px) {
+      .gallery-grid { grid-template-columns: 1fr; }
+      .page-header { padding: 2.5rem 1.25rem; }
+      .page-header h1 { font-size: 1.8rem; }
+      .gallery-section { padding: 2rem 1.25rem 3rem; }
+      .filter-bar { padding: 1rem 1.25rem; }
+      .portfolio-cta { padding: 2.5rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<header>
+  <div class="nav-inner">
+    <a class="logo-wrap" href="index.html">
+      <img src="Logo BPP.png" alt="Better Pro Paint logo" />
+      <div class="logo-text">
+        <strong>BETTER PRO PAINT</strong>
+        <span>Interior &amp; Exterior Painting Services</span>
+        <em>Reliable · Professional · Premium</em>
+      </div>
+    </a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="index.html#services">Services</a>
+      <a href="index.html#why">Why Us</a>
+      <a href="portfolio.html">Our Work</a>
+      <a href="index.html#contact" class="nav-cta">Get a Free Estimate →</a>
+    </nav>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="mobile-nav" id="mobileNav">
+  <a href="index.html">Home</a>
+  <a href="index.html#services">Services</a>
+  <a href="index.html#why">Why Us</a>
+  <a href="portfolio.html">Our Work</a>
+  <a href="index.html#contact" class="mobile-cta">Get a Free Estimate →</a>
+</div>
+
+<!-- ══ PAGE HEADER ══ -->
+<div class="page-header">
+  <h1>Our Work</h1>
+  <p>A look at recent projects completed by the Better Pro Paint team across the Minneapolis area.</p>
+</div>
+
+<!-- ══ FILTER BAR ══ -->
+<div class="filter-bar">
+  <div class="filter-inner">
+    <button class="filter-btn active" onclick="filterGallery('all', this)">View All</button>
+    <button class="filter-btn" onclick="filterGallery('exterior', this)">Exterior</button>
+    <button class="filter-btn" onclick="filterGallery('interior', this)">Interior</button>
+  </div>
+</div>
+
+<!-- ══ GALLERY ══ -->
+<section class="gallery-section">
+  <div class="gallery-inner">
+    <div class="gallery-grid" id="gallery">
+
+      <div class="gallery-card" data-category="interior">
+        <img src="images/IMG_6767 copy.JPG" alt="Living room repaint" />
+        <div class="gallery-overlay">
+          <div class="gallery-info">
+            <h3>Living Room Repaint</h3>
+            <span>Interior</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-card" data-category="interior">
+        <img src="images/IMG_6764 copy.JPG" alt="Kitchen repaint" />
+        <div class="gallery-overlay">
+          <div class="gallery-info">
+            <h3>Kitchen Repaint</h3>
+            <span>Interior</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-card" data-category="interior">
+        <img src="images/IMG_6766 copy.JPG" alt="Sunroom repaint" />
+        <div class="gallery-overlay">
+          <div class="gallery-info">
+            <h3>Sunroom Refresh</h3>
+            <span>Interior</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-card" data-category="interior">
+        <img src="images/IMG_6753 copy.JPG" alt="Living room interior" />
+        <div class="gallery-overlay">
+          <div class="gallery-info">
+            <h3>Open Living Room</h3>
+            <span>Interior</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-card" data-category="interior">
+        <img src="images/IMG_6758 copy.JPG" alt="Bathroom repaint" />
+        <div class="gallery-overlay">
+          <div class="gallery-info">
+            <h3>Bathroom Refresh</h3>
+            <span>Interior</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-card" data-category="interior">
+        <img src="images/IMG_0589 2.jpg" alt="High-rise living room" />
+        <div class="gallery-overlay">
+          <div class="gallery-info">
+            <h3>Condo Living Room</h3>
+            <span>Interior</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-card" data-category="interior">
+        <img src="images/IMG_0590 2 copy.jpg" alt="Open concept living room" />
+        <div class="gallery-overlay">
+          <div class="gallery-info">
+            <h3>Open Concept Living</h3>
+            <span>Interior</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-card" data-category="interior">
+        <img src="images/IMG_0591 2 copy.jpg" alt="Living and kitchen area" />
+        <div class="gallery-overlay">
+          <div class="gallery-info">
+            <h3>Living &amp; Kitchen Area</h3>
+            <span>Interior</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-card" data-category="interior">
+        <img src="images/IMG_0592 2 copy.jpg" alt="Kitchen refresh" />
+        <div class="gallery-overlay">
+          <div class="gallery-info">
+            <h3>Kitchen Refresh</h3>
+            <span>Interior</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-card" data-category="exterior">
+        <img src="images/Exterior.JPG" alt="Exterior repaint" />
+        <div class="gallery-overlay">
+          <div class="gallery-info">
+            <h3>Exterior Repaint</h3>
+            <span>Exterior</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-card" data-category="exterior">
+        <img src="images/Exterior1.3.JPG" alt="Exterior repaint" />
+        <div class="gallery-overlay">
+          <div class="gallery-info">
+            <h3>Exterior Repaint</h3>
+            <span>Exterior</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-card" data-category="exterior">
+        <img src="images/Exterior 1.2.jpeg" alt="Exterior paint job in progress" />
+        <div class="gallery-overlay">
+          <div class="gallery-info">
+            <h3>Exterior Repaint</h3>
+            <span>Exterior</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-card" data-category="exterior">
+        <img src="images/Exterior 3.jpg" alt="Multi-unit exterior repaint" />
+        <div class="gallery-overlay">
+          <div class="gallery-info">
+            <h3>Multi-Unit Exterior</h3>
+            <span>Exterior</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-card" data-category="exterior">
+        <img src="images/Exterior3.2.jpeg" alt="Multi-family exterior repaint" />
+        <div class="gallery-overlay">
+          <div class="gallery-info">
+            <h3>Multi-Family Exterior</h3>
+            <span>Exterior</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-card" data-category="exterior">
+        <img src="images/Exterior 3.3.jpeg" alt="Dark exterior repaint" />
+        <div class="gallery-overlay">
+          <div class="gallery-info">
+            <h3>Exterior Color Change</h3>
+            <span>Exterior</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA ══ -->
+<div class="portfolio-cta">
+  <h2>Like What You See?</h2>
+  <p>Get a free estimate for your home or investment property.</p>
+  <a href="index.html#contact" class="btn-primary">Get a Free Estimate →</a>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <span>© 2024 Better Pro Paint · Minneapolis, MN · <a href="index.html" style="color:rgba(255,255,255,0.4); text-decoration:none;">Back to Home</a></span>
+</footer>
+
+<script>
+  const hBtn = document.getElementById('hamburgerBtn');
+  const mNav = document.getElementById('mobileNav');
+  hBtn.addEventListener('click', () => {
+    hBtn.classList.toggle('open');
+    mNav.classList.toggle('open');
+  });
+  mNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    hBtn.classList.remove('open');
+    mNav.classList.remove('open');
+  }));
+
+  function filterGallery(category, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('#gallery > div').forEach(card => {
+      card.style.display = category === 'all' || card.dataset.category === category ? '' : 'none';
+    });
+  }
+
+  // default to all on load
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('#gallery > div').forEach(card => {
+      card.style.display = '';
+    });
+  });
+</script>
+
+</body>
+</html>
