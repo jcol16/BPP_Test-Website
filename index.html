@@ -526,7 +526,7 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
-      .two-col { grid-template-columns: 1fr; gap: 2.5rem; }
+      .two-col { display: flex; flex-direction: column-reverse; gap: 2.5rem; }
       .two-col.reverse { direction: ltr; }
       .why-grid { grid-template-columns: 1fr 1fr; }
       .techniques-grid { grid-template-columns: 1fr; }
