@@ -1044,9 +1044,29 @@
   // Logo colour: dark text over light sections, white over dark hero
   const header = document.querySelector('header');
   const hero = document.querySelector('.hero');
+  function isLightBackground(el) {
+    const bg = window.getComputedStyle(el).backgroundColor;
+    const m = bg.match(/\d+/g);
+    if (!m) return false;
+    const [r, g, b] = m.map(Number);
+    // perceived luminance
+    return (0.299 * r + 0.587 * g + 0.114 * b) > 140;
+  }
   function updateLogoTheme() {
-    const heroBottom = hero ? hero.getBoundingClientRect().bottom : 0;
-    header.classList.toggle('light-bg', heroBottom < 72);
+    const midY = header.offsetHeight / 2;
+    // find the topmost element behind the header centre
+    const el = document.elementFromPoint(window.innerWidth / 2, midY + header.offsetHeight);
+    let node = el;
+    let light = false;
+    while (node && node !== document.body) {
+      const bg = window.getComputedStyle(node).backgroundColor;
+      if (bg && bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent') {
+        light = isLightBackground(node);
+        break;
+      }
+      node = node.parentElement;
+    }
+    header.classList.toggle('light-bg', light);
   }
   window.addEventListener('scroll', updateLogoTheme, { passive: true });
   updateLogoTheme();
