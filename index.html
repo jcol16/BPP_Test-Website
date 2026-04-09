@@ -501,15 +501,10 @@
     .footer-inner {
       max-width: 1200px; margin: 0 auto;
       display: grid;
-      grid-template-columns: 1.5fr 1fr;
-      gap: 2rem;
-      padding-bottom: 2rem;
+      grid-template-columns: 2fr 1fr 1fr 1.5fr;
+      gap: 3rem;
+      padding-bottom: 3rem;
       border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
-    .footer-cols-right {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
     }
     .footer-logo-wrap { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 1rem; }
     .footer-logo-wrap img { height: 40px; }
@@ -604,8 +599,7 @@
       .why-grid { grid-template-columns: 1fr 1fr; }
       .techniques-grid { grid-template-columns: 1fr; }
       .projects-grid { grid-template-columns: 1fr 1fr; }
-      .footer-inner { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-      .footer-cols-right { flex-direction: row; flex-wrap: wrap; gap: 1rem; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 736px) {
       nav { display: none; }
@@ -629,7 +623,7 @@
       .btn-outline { margin-left: 0; }
       .cta-band h2 { font-size: 1.5rem; }
       .form-row-2col { grid-template-columns: 1fr !important; }
-      .footer-inner { grid-template-columns: 1fr; gap: 1.25rem; }
+      .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
       .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
     }
   </style>
@@ -987,7 +981,6 @@
       </div>
       <p>Elevating properties with premium painting services. Targeting homeowners &amp; property investors looking to upgrade their assets.</p>
     </div>
-    <div class="footer-cols-right">
     <div>
       <h4>Services</h4>
       <ul>
@@ -1025,7 +1018,6 @@
       </div>
       <br>
       <a href="#contact" class="btn-primary" style="font-size:0.82rem; padding:0.65rem 1.4rem;">Get a Free Estimate →</a>
-    </div>
     </div>
   </div>
   <div class="footer-bottom">
