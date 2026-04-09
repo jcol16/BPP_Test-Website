@@ -602,8 +602,8 @@
     @media (max-width: 736px) {
       nav { display: none; }
       .hamburger { display: flex; }
-      .logo-wrap { display: flex; }
-      .nav-inner { padding: 0 1.25rem; justify-content: space-between; }
+      .logo-wrap { display: flex; position: absolute; left: 50%; transform: translateX(-50%); }
+      .nav-inner { padding: 0 1.25rem; justify-content: flex-end; position: relative; }
       .logo-text em { display: none; }
       .section { padding: 2.5rem 1.25rem; }
       .hero { height: 500px; }
