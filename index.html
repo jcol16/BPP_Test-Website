@@ -78,11 +78,10 @@
 
     /* ── NAV ── */
     header {
-      background: var(--secondary);
-      position: sticky;
-      top: 0;
+      position: fixed;
+      top: 0; left: 0; right: 0;
       z-index: 100;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.35);
+      background: transparent;
     }
     .nav-inner {
       max-width: 1200px;
@@ -90,12 +89,17 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 2rem;
-      height: 72px;
+      padding: 0.75rem 2rem 0.5rem;
+      height: auto;
     }
-    .logo-wrap { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
-    .logo-wrap img { height: 48px; width: auto; }
-    .logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+    .logo-wrap {
+      display: flex; align-items: center; gap: 0.75rem; text-decoration: none;
+      padding: 0.3rem 0.75rem;
+      border-radius: 16px;
+      background: radial-gradient(ellipse 160% 140% at 30% 50%, rgba(0,0,0,0.35) 0%, transparent 70%);
+    }
+    .logo-wrap img { height: 34px; width: auto; }
+    .logo-text { display: flex; flex-direction: column; justify-content: center; line-height: 1.3; }
     .logo-text strong {
       font-family: 'Poppins', sans-serif;
       font-weight: 800;
@@ -103,21 +107,37 @@
       color: #fff;
       letter-spacing: -0.02em;
     }
-    .logo-text span { font-size: 0.72rem; color: var(--accent); font-weight: 500; letter-spacing: 0.04em; }
-    .logo-text em { font-size: 0.65rem; color: rgba(255,255,255,0.45); font-style: normal; letter-spacing: 0.06em; margin-top: 1px; }
+    .logo-text span { font-size: 0.72rem; color: var(--accent); font-weight: 500; letter-spacing: 0.04em; transition: color 0.3s; }
+    .logo-text em { font-size: 0.65rem; color: rgba(255,255,255,0.45); font-style: normal; letter-spacing: 0.06em; margin-top: 1px; transition: color 0.3s; }
+    .logo-text strong { transition: color 0.3s; }
+    /* Light background state */
+    header.light-bg .logo-text strong { color: var(--dark); }
+    header.light-bg .logo-text em { color: rgba(0,0,0,0.4); }
     nav { display: flex; align-items: center; gap: 0.25rem; }
+    .nav-links {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 9999px;
+      padding: 4px;
+      border: 1px solid rgba(90, 90, 107, 0.13);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transform: translateZ(0);
+      -webkit-transform: translateZ(0);
+    }
     nav a {
       font-family: 'Poppins', sans-serif;
       font-size: 0.82rem;
       font-weight: 600;
-      color: rgba(255,255,255,0.82);
+      color: #fff;
       text-decoration: none;
       padding: 0.4rem 0.85rem;
       border-radius: 4px;
       letter-spacing: 0.03em;
+      text-shadow: 0 1px 6px rgba(0,0,0,0.55);
       transition: color 0.2s, background 0.2s;
     }
-    nav a:hover { color: #fff; background: rgba(255,255,255,0.08); }
+    nav a:hover { color: var(--accent); background: transparent; }
     .nav-cta {
       margin-left: 0.5rem;
       background: var(--accent) !important;
@@ -544,9 +564,11 @@
     .mobile-nav {
       display: none;
       flex-direction: column;
-      background: var(--secondary);
+      background: rgba(18, 12, 24, 0.95);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
       border-top: 1px solid rgba(255,255,255,0.08);
-      position: sticky; top: 72px; z-index: 99;
+      position: fixed; top: 52px; left: 0; right: 0; z-index: 99;
     }
     .mobile-nav.open { display: flex; }
     .mobile-nav a {
@@ -613,10 +635,9 @@
       <div class="logo-text">
         <strong>BETTER PRO PAINT</strong>
         <span>Interior &amp; Exterior Painting Services</span>
-        <em>Reliable · Professional · Premium</em>
       </div>
     </a>
-    <nav>
+    <nav class="nav-links">
       <a href="#services">Services</a>
       <a href="#why">Why Us</a>
       <a href="portfolio.html">Projects</a>
@@ -1014,6 +1035,16 @@
     btn.classList.remove('open');
     nav.classList.remove('open');
   }));
+
+  // Logo colour: dark text over light sections, white over dark hero
+  const header = document.querySelector('header');
+  const hero = document.querySelector('.hero');
+  function updateLogoTheme() {
+    const heroBottom = hero ? hero.getBoundingClientRect().bottom : 0;
+    header.classList.toggle('light-bg', heroBottom < 72);
+  }
+  window.addEventListener('scroll', updateLogoTheme, { passive: true });
+  updateLogoTheme();
 </script>
 
 </body>
