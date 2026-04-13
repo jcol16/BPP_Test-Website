@@ -61,7 +61,7 @@
       border-radius: 16px;
       background: radial-gradient(ellipse 160% 140% at 30% 50%, rgba(0,0,0,0.35) 0%, transparent 70%);
     }
-    .logo-wrap img { height: 34px; width: auto; }
+    .logo-wrap img { height: 34px; width: auto; transition: filter 0.3s; }
     .logo-text { display: flex; flex-direction: column; justify-content: center; line-height: 1.3; }
     .logo-text strong {
       font-family: 'Poppins', sans-serif;
@@ -114,6 +114,7 @@
     header.light-bg .logo-text strong { color: var(--primary); }
     header.light-bg .logo-text em { color: rgba(0,0,0,0.4); }
     header.light-bg .hamburger span { background: var(--primary); }
+    header.light-bg .logo-wrap img { filter: invert(22%) sepia(36%) saturate(686%) hue-rotate(168deg) brightness(97%) contrast(94%); }
 
     /* ── PAGE HEADER ── */
     .page-header {
@@ -351,7 +352,7 @@
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
       border-top: 1px solid rgba(255,255,255,0.08);
-      position: fixed; top: 52px; left: 0; right: 0; z-index: 99;
+      position: fixed; top: 70px; left: 0; right: 0; z-index: 99;
     }
     .mobile-nav.open { display: flex; }
     .mobile-nav a {
@@ -376,7 +377,7 @@
       .gallery-grid { grid-template-columns: repeat(2, 1fr); }
       nav { display: none; }
       .hamburger { display: flex; }
-      .logo-wrap { display: flex; position: absolute; left: 50%; transform: translateX(-50%); }
+      .logo-wrap { display: flex; position: absolute; left: 50%; transform: translateX(-50%); gap: 0.35rem; }
       .nav-inner { padding: 0.75rem 1.25rem; justify-content: flex-end; position: relative; min-height: 56px; }
     }
     @media (max-width: 560px) {
